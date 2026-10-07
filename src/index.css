@@ -3,5 +3,85 @@
 /* Global design tokens — reuse anywhere as utilities:
    bg-primary, text-primary, border-primary, focus:ring-primary ... */
 @theme {
+  /* Typography */
+  --font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Brand */
   --color-primary: #011e41;
+  --color-primary-soft: #0b2c55; /* active nav item on the dark sidebar */
+
+  /* Neutrals */
+  --color-ink: #1d2433;          /* headings / card titles */
+  --color-body: #3f4655;         /* regular text */
+  --color-muted: #6b7280;        /* secondary text, labels */
+  --color-line: #cfd5de;         /* card + input borders */
+  --color-line-soft: #e5e8ee;    /* dividers */
+  --color-track: #e3e6eb;        /* scrollbar track */
+
+  /* Accents */
+  --color-whatsapp: #25d366;
+  --color-priority: #3b5bdb;
+  --color-priority-bg: #e8edff;
+  --color-alert: #ef4444;
+
+  /* Case pipeline stages (text / tinted background / badge) */
+  --color-stage-created: #e03131;
+  --color-stage-created-bg: #fdeeee;
+  --color-stage-created-badge: #fbd5d5;
+
+  --color-stage-review: #e8590c;
+  --color-stage-review-bg: #fef1e8;
+  --color-stage-review-badge: #fcd9c2;
+
+  --color-stage-vac: #d9730d;
+  --color-stage-vac-bg: #fef4e8;
+  --color-stage-vac-badge: #fbdcb8;
+
+  --color-stage-appointment: #c98a04;
+  --color-stage-appointment-bg: #fef8e7;
+  --color-stage-appointment-badge: #fae6a8;
+
+  --color-stage-submitted: #2f9e44;
+  --color-stage-submitted-bg: #ebf8ee;
+  --color-stage-submitted-badge: #c3ebcd;
+
+  --color-stage-decision: #1971c2;
+  --color-stage-decision-bg: #e8f2fc;
+  --color-stage-decision-badge: #c5def7;
+}
+
+/* Thin horizontal scrollbar used by the kanban board */
+@utility scrollbar-board {
+  /* Standard props only where webkit pseudo-elements are unsupported (Firefox);
+     in Chrome they would override the styled 8px bar below. */
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) var(--color-track);
+  }
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--color-track);
+    border-radius: 9999px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 9999px;
+  }
+}
+
+/* Hide scrollbar but keep scrolling (drawer bodies etc.) */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-white font-sans text-body antialiased;
+  }
 }

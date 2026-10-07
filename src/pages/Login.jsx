@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
 const LOGO_URL = '/logo.svg'
@@ -6,10 +7,12 @@ const LOGO_URL = '/logo.svg'
 function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault()
     // TODO: wire up authentication
+    navigate('/dashboard')
   }
 
   return (
