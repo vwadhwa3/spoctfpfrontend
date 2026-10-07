@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+/* Global design tokens — reuse anywhere as utilities:
+   bg-primary, text-primary, border-primary, focus:ring-primary ... */
+@theme {
+  --color-primary: #011e41;
+}

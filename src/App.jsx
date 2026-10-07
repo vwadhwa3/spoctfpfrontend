@@ -1,16 +1,13 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Login from './pages/Login.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <p className='text-3xl font-bold underline'>helloo</p>
-    </>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      {/* Fallback: anything else redirects to login for now */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   )
 }
 
