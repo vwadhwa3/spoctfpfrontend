@@ -44,7 +44,7 @@ function Sidebar({ role = 'SPOC', subtitle = 'Administrator role' }) {
         </NavLink>
         <button
           type="button"
-          onClick={() => navigate('/login')}
+          onClick={() => navigate('/spoc/dashboard')}
           className="flex items-center gap-3.5 border-l-2 border-transparent py-3 pl-3.5 pr-4 text-left text-base text-white/85 transition-colors hover:bg-white/5 hover:text-white"
         >
           <LogOut className="h-5 w-5" strokeWidth={1.75} />

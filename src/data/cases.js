@@ -15,6 +15,21 @@ export const COUNTRIES = ['Germany', 'France', 'Italy', 'Spain', 'Netherlands', 
 export const CSRS = ['Tanvi Joshi', 'Rohan Mehta', 'Priya Nair', 'Neha Sharma', 'Ananya Gupta', 'Siddharth Rao']
 export const TEAM_LEADS = ['Akanksha Sharma', 'Kunal Verma']
 
+// "Add new case" form options
+export const SERVICE_PACKS = ['Standard', 'Premium', 'Concierge']
+export const ADDON_PACKS = ['Travel insurance', 'Flight itinerary', 'Hotel reservation', 'Document translation']
+export const SEXES = ['Male', 'Female', 'Other']
+export const TRAVEL_DOCUMENT_TYPES = ['Passport', 'Emergency travel document', 'Refugee travel document']
+export const NATIONALITIES = ['British', 'Indian', 'American', 'Emirati', 'Australian', 'Canadian']
+export const BIRTH_COUNTRIES = ['United Kingdom', 'India', 'United States', 'United Arab Emirates', 'Australia', 'Canada']
+export const DIAL_CODES = [
+  { code: '+44', flag: '🇬🇧' },
+  { code: '+91', flag: '🇮🇳' },
+  { code: '+1', flag: '🇺🇸' },
+  { code: '+971', flag: '🇦🇪' },
+  { code: '+61', flag: '🇦🇺' },
+]
+
 export const INITIAL_CASES = [
   { id: 'c1', name: 'Vivek K Singh', city: 'London', country: 'Germany', visa: 'Student', travelDate: '2026-05-22', csr: 'Tanvi Joshi', teamLead: 'Akanksha Sharma', stage: 'created', highPriority: false },
   { id: 'c2', name: 'Ananya Rao', city: 'Manchester', country: 'France', visa: 'Tourist', travelDate: '2026-06-04', csr: 'Rohan Mehta', teamLead: 'Akanksha Sharma', stage: 'created', highPriority: false },
@@ -54,6 +69,22 @@ export const ACTIVE_CASES = [
   { id: 'a9', name: 'Rohan Verma', customerLead: 'Rohan Verma', city: 'London', country: 'Italy', visa: 'Travel', travelDate: '2026-12-02', csr: 'Neha Sharma', teamLead: 'Akanksha Sharma', state: 'review', updatedAt: minutesAgo(240) },
   { id: 'a10', name: 'Ishaan Rao', customerLead: 'Ishaan Rao', city: 'Birmingham', country: 'Spain', visa: 'Student', travelDate: '2026-12-15', csr: 'Ananya Gupta', teamLead: 'Kunal Verma', state: 'documents', updatedAt: minutesAgo(1440) },
 ]
+
+export const EMPTY_APPLICANT = {
+  firstName: '',
+  surname: '',
+  sex: '',
+  dateOfBirth: '',
+  documentType: '',
+  documentNumber: '',
+  issueDate: '',
+  expiryDate: '',
+  nationality: '',
+  placeOfBirth: '',
+  phoneCode: '+44',
+  phone: '',
+  document: null,
+}
 
 export const EMPTY_FILTERS = {
   visaCategories: [],

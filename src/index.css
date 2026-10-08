@@ -20,6 +20,7 @@
 
   /* Accents */
   --color-whatsapp: #25d366;
+  --color-whatsapp-ink: #15803d;  /* number text on the WhatsApp pill */
   --color-priority: #3b5bdb;
   --color-priority-bg: #e8edff;
   --color-alert: #ef4444;

@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import Topbar from '../components/layout/Topbar.jsx'
 import PageHeader from '../components/layout/PageHeader.jsx'
@@ -6,7 +7,6 @@ import ListToolbar from '../components/ui/ListToolbar.jsx'
 import Pagination from '../components/ui/Pagination.jsx'
 import CasesTable from '../components/cases/CasesTable.jsx'
 import FilterDrawer from '../components/dashboard/FilterDrawer.jsx'
-import CreateCaseDrawer from '../components/dashboard/CreateCaseDrawer.jsx'
 import { downloadCsv } from '../lib/csv.js'
 import {
   ACTIVE_CASES,
@@ -36,16 +36,20 @@ function exportCases(rows) {
 }
 
 function Cases() {
-  const [cases, setCases] = useState(ACTIVE_CASES)
+  const navigate = useNavigate()
+  const location = useLocation()
+  // A case saved on the "Add new case" page arrives via router state
+  const [cases] = useState(() => {
+    const newCase = location.state?.newCase
+    return newCase ? [newCase, ...ACTIVE_CASES] : ACTIVE_CASES
+  })
   const [search, setSearch] = useState('')
   const [filters, setFilters] = useState(EMPTY_FILTERS)
   const [sortBy, setSortBy] = useState('travelDate')
   const [page, setPage] = useState(1)
   const [filterOpen, setFilterOpen] = useState(false)
-  const [createOpen, setCreateOpen] = useState(false)
 
   const closeFilter = useCallback(() => setFilterOpen(false), [])
-  const closeCreate = useCallback(() => setCreateOpen(false), [])
 
   // Any change to what's listed sends the user back to the first page
   const resetPage = (setter) => (value) => {
@@ -65,13 +69,6 @@ function Cases() {
   const currentPage = Math.min(page, pageCount)
   const pageCases = visibleCases.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
 
-  const handleCreate = (newCase) => {
-    setCases((prev) => [
-      { ...newCase, customerLead: newCase.name, state: 'created', updatedAt: new Date().toISOString() },
-      ...prev,
-    ])
-  }
-
   return (
     <div className="min-h-screen bg-white">
       <Sidebar />
@@ -83,7 +80,7 @@ function Cases() {
           <PageHeader
             title="Active cases"
             onDownload={() => exportCases(visibleCases)}
-            onCreate={() => setCreateOpen(true)}
+            onCreate={() => navigate('/spoc/cases/new', { state: { from: '/spoc/cases' } })}
           />
 
           <ListToolbar
@@ -106,7 +103,6 @@ function Cases() {
       </div>
 
       <FilterDrawer open={filterOpen} onClose={closeFilter} filters={filters} onApply={resetPage(setFilters)} />
-      <CreateCaseDrawer open={createOpen} onClose={closeCreate} onCreate={handleCreate} />
     </div>
   )
 }

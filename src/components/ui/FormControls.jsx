@@ -1,4 +1,6 @@
-import { ChevronDown, Check } from 'lucide-react'
+import { useRef } from 'react'
+import { ChevronDown, Check, Calendar } from 'lucide-react'
+import { DIAL_CODES } from '../../data/cases.js'
 
 const fieldBase =
   'h-11 w-full rounded-[2px] border border-line bg-white px-3.5 text-[15px] text-body outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary'
@@ -45,6 +47,82 @@ export function TextField({ label, id, className = '', ...props }) {
         </label>
       )}
       <input id={id} className={`${fieldBase} placeholder:text-body/90 ${className}`} {...props} />
+    </div>
+  )
+}
+
+function FieldLabel({ id, children }) {
+  return (
+    <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-ink">
+      {children}
+    </label>
+  )
+}
+
+/** Date input with our own calendar button in place of the native indicator. */
+export function DateField({ label, id, value, onChange, ...props }) {
+  const inputRef = useRef(null)
+
+  return (
+    <div>
+      {label && <FieldLabel id={id}>{label}</FieldLabel>}
+      <div className="relative">
+        <input
+          id={id}
+          ref={inputRef}
+          type="date"
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className={`${fieldBase} pr-10 ${value ? 'text-body' : 'text-muted'} [&::-webkit-calendar-picker-indicator]:hidden`}
+          {...props}
+        />
+        <button
+          type="button"
+          tabIndex={-1}
+          aria-label="Open calendar"
+          onClick={() => inputRef.current?.showPicker?.()}
+          className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted hover:text-primary"
+        >
+          <Calendar className="h-[18px] w-[18px]" strokeWidth={1.5} />
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/** Dial-code select (flag + code) joined to a phone number input. */
+export function PhoneField({ label, id, code, onCodeChange, number, onNumberChange, required }) {
+  return (
+    <div>
+      {label && <FieldLabel id={id}>{label}</FieldLabel>}
+      <div className="flex h-11 rounded-[2px] border border-line bg-white transition-colors focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
+        <span className="relative flex shrink-0 items-center border-r border-line">
+          <select
+            value={code}
+            onChange={(event) => onCodeChange(event.target.value)}
+            aria-label="Country dialling code"
+            className="h-full cursor-pointer appearance-none bg-transparent pl-3 pr-8 text-[15px] text-ink outline-none"
+          >
+            {DIAL_CODES.map((dial) => (
+              <option key={dial.code} value={dial.code}>
+                {dial.flag} {dial.code}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-2.5 h-4 w-4 text-muted" aria-hidden="true" />
+        </span>
+        <input
+          id={id}
+          type="tel"
+          inputMode="tel"
+          required={required}
+          value={number}
+          onChange={(event) => onNumberChange(event.target.value)}
+          pattern="[0-9 ]{6,15}"
+          title="6–15 digits"
+          className="min-w-0 flex-1 bg-transparent px-3.5 text-[15px] text-body outline-none"
+        />
+      </div>
     </div>
   )
 }

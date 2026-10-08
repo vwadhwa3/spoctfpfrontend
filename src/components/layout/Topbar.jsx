@@ -12,7 +12,14 @@ function useLocalTime() {
   return time
 }
 
-function Topbar({ title = 'Visa case management', search, onSearchChange, hasNotifications = true, userName = 'User' }) {
+function Topbar({
+  title = 'Visa case management',
+  search,
+  onSearchChange,
+  searchPlaceholder = 'Search applicant name or visa category...',
+  hasNotifications = true,
+  userName = 'User',
+}) {
   const time = useLocalTime()
 
   return (
@@ -27,7 +34,7 @@ function Topbar({ title = 'Visa case management', search, onSearchChange, hasNot
           type="search"
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
-          placeholder="Search applicant name or visa category..."
+          placeholder={searchPlaceholder}
           className="h-10 w-full rounded-[2px] border border-line bg-white pl-11 pr-3 text-[15px] text-body outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
         />
       </label>

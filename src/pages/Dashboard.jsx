@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import Topbar from '../components/layout/Topbar.jsx'
 import PageHeader from '../components/layout/PageHeader.jsx'
 import ListToolbar from '../components/ui/ListToolbar.jsx'
 import StageColumn from '../components/dashboard/StageColumn.jsx'
 import FilterDrawer from '../components/dashboard/FilterDrawer.jsx'
-import CreateCaseDrawer from '../components/dashboard/CreateCaseDrawer.jsx'
 import { downloadCsv } from '../lib/csv.js'
 import { STAGES, INITIAL_CASES, EMPTY_FILTERS, countActiveFilters, matchesFilters, matchesSearch } from '../data/cases.js'
 
@@ -24,15 +24,19 @@ function exportCsv(rows) {
 }
 
 function Dashboard() {
-  const [cases, setCases] = useState(INITIAL_CASES)
+  const navigate = useNavigate()
+  const location = useLocation()
+  // A case saved on the "Add new case" page arrives via router state
+  const [cases] = useState(() => {
+    const newCase = location.state?.newCase
+    return newCase ? [newCase, ...INITIAL_CASES] : INITIAL_CASES
+  })
   const [search, setSearch] = useState('')
   const [filters, setFilters] = useState(EMPTY_FILTERS)
   const [sortBy, setSortBy] = useState('travelDate')
   const [filterOpen, setFilterOpen] = useState(false)
-  const [createOpen, setCreateOpen] = useState(false)
 
   const closeFilter = useCallback(() => setFilterOpen(false), [])
-  const closeCreate = useCallback(() => setCreateOpen(false), [])
 
   const visibleCases = useMemo(
     () =>
@@ -54,7 +58,7 @@ function Dashboard() {
             eyebrow="Operational overview"
             title="Dashboard"
             onDownload={() => exportCsv(visibleCases)}
-            onCreate={() => setCreateOpen(true)}
+            onCreate={() => navigate('/spoc/cases/new', { state: { from: '/spoc/dashboard' } })}
           />
 
           <ListToolbar
@@ -80,11 +84,6 @@ function Dashboard() {
       </div>
 
       <FilterDrawer open={filterOpen} onClose={closeFilter} filters={filters} onApply={setFilters} />
-      <CreateCaseDrawer
-        open={createOpen}
-        onClose={closeCreate}
-        onCreate={(newCase) => setCases((prev) => [newCase, ...prev])}
-      />
     </div>
   )
 }
