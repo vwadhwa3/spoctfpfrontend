@@ -2,9 +2,9 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { LayoutGrid, Folder, BookUser, Settings, LogOut } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { to: '/dashboard', label: 'Dashboard', icon: LayoutGrid },
-  { to: '/cases', label: 'Cases', icon: Folder },
-  { to: '/directory', label: 'Directory', icon: BookUser },
+  { to: '/spoc/dashboard', label: 'Dashboard', icon: LayoutGrid },
+  { to: '/spoc/cases', label: 'Cases', icon: Folder },
+  { to: '/spoc/directory', label: 'Directory', icon: BookUser },
 ]
 
 const itemClass = ({ isActive }) =>
@@ -38,7 +38,7 @@ function Sidebar({ role = 'SPOC', subtitle = 'Administrator role' }) {
       </nav>
 
       <div className="mb-10 mt-auto flex flex-col gap-2">
-        <NavLink to="/settings" className={itemClass}>
+        <NavLink to="/spoc/settings" className={itemClass}>
           <Settings className="h-5 w-5" strokeWidth={1.75} />
           Settings
         </NavLink>

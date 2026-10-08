@@ -48,6 +48,13 @@
   --color-stage-decision: #1971c2;
   --color-stage-decision-bg: #e8f2fc;
   --color-stage-decision-badge: #c5def7;
+
+  /* Extra case states (cases table only) */
+  --color-state-booked: #a67c00;
+  --color-state-booked-badge: #fbefc0;
+
+  --color-state-customer: #4d8a12;
+  --color-state-customer-badge: #e4f4cf;
 }
 
 /* Thin horizontal scrollbar used by the kanban board */
