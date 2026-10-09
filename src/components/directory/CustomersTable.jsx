@@ -1,9 +1,12 @@
+import { Link, useNavigate } from 'react-router-dom'
 import { ChevronRight, Phone } from 'lucide-react'
 import { whatsappUrl } from '../../data/customers.js'
 
 const COLUMNS = ['Customer lead', 'Total applicants', 'Assigned CSR', 'Assigned team lead', 'WhatsApp']
 
 function CustomersTable({ customers }) {
+  const navigate = useNavigate()
+
   return (
     <div className="overflow-x-auto rounded-[2px] border border-line">
       <table className="w-full min-w-[820px] border-collapse text-left text-[15px]">
@@ -30,12 +33,13 @@ function CustomersTable({ customers }) {
             customers.map((customer) => (
               <tr
                 key={customer.id}
-                className="border-b border-line text-body transition-colors last:border-b-0 hover:bg-primary/[0.03]"
+                onClick={() => navigate(`/spoc/directory/${customer.id}`)}
+                className="cursor-pointer border-b border-line text-body transition-colors last:border-b-0 hover:bg-primary/[0.03]"
               >
                 <td className="whitespace-nowrap py-6 pl-6 pr-4">{customer.lead}</td>
                 <td className="px-4 py-6">
                   <span className="inline-flex whitespace-nowrap rounded-full bg-neutral-100 px-2.5 py-1.5 text-[13px] leading-none text-body">
-                    {customer.applicants} {customer.applicants === 1 ? 'Applicant' : 'Applicants'}
+                    {customer.applicants.length} {customer.applicants.length === 1 ? 'Applicant' : 'Applicants'}
                   </span>
                 </td>
                 <td className="whitespace-nowrap px-4 py-6">{customer.csr}</td>
@@ -45,6 +49,7 @@ function CustomersTable({ customers }) {
                     href={whatsappUrl(customer.phone)}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={(event) => event.stopPropagation()}
                     className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-whatsapp/15 py-1.5 pl-1.5 pr-3 text-sm text-whatsapp-ink transition-colors hover:bg-whatsapp/25"
                     aria-label={`Message ${customer.lead} on WhatsApp (${customer.phone})`}
                   >
@@ -55,7 +60,14 @@ function CustomersTable({ customers }) {
                   </a>
                 </td>
                 <td className="pr-5 text-right">
-                  <ChevronRight className="ml-auto h-5 w-5 text-muted" strokeWidth={1.5} aria-hidden="true" />
+                  <Link
+                    to={`/spoc/directory/${customer.id}`}
+                    onClick={(event) => event.stopPropagation()}
+                    className="ml-auto flex h-8 w-8 items-center justify-center rounded-[2px] text-muted transition-colors hover:text-primary"
+                    aria-label={`Open ${customer.lead}`}
+                  >
+                    <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
+                  </Link>
                 </td>
               </tr>
             ))

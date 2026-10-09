@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Check } from 'lucide-react'
 
-/** Horizontal step indicator: done steps get a filled check, upcoming ones a numbered circle. */
+/** Horizontal step indicator: done steps get a filled check, the active one a filled number, upcoming ones an outlined number. */
 function Stepper({ steps, current }) {
   return (
     <ol className="flex h-16 items-center gap-4 rounded-[2px] border border-line px-6">
@@ -15,9 +15,13 @@ function Stepper({ steps, current }) {
               className={`flex items-center gap-2.5 text-[15px] ${active || done ? 'font-medium text-ink' : 'text-muted'}`}
               aria-current={active ? 'step' : undefined}
             >
-              {active || done ? (
+              {done ? (
                 <span className="flex h-[22px] w-[22px] items-center justify-center rounded-full bg-primary">
                   <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
+                </span>
+              ) : active ? (
+                <span className="flex h-[22px] w-[22px] items-center justify-center rounded-full bg-primary text-xs text-white">
+                  {index + 1}
                 </span>
               ) : (
                 <span className="flex h-[22px] w-[22px] items-center justify-center rounded-full border border-muted text-xs">

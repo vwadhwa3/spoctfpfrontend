@@ -14,7 +14,7 @@ function exportCustomers(rows) {
   downloadCsv(
     'customers.csv',
     ['Customer lead', 'Total applicants', 'Assigned CSR', 'Assigned team lead', 'WhatsApp'],
-    rows.map((r) => [r.lead, r.applicants, r.csr, r.teamLead, r.phone]),
+    rows.map((r) => [r.lead, r.applicants.length, r.csr, r.teamLead, r.phone]),
   )
 }
 

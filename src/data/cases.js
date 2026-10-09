@@ -86,6 +86,24 @@ export const EMPTY_APPLICANT = {
   document: null,
 }
 
+// "Add new case" → Payment step
+export const MINIMUM_DEPOSIT = 10_000
+export const BANK_ACCOUNTS = ['Barclays •••• 4821', 'HSBC •••• 1093', 'Lloyds •••• 7756', 'NatWest •••• 3310']
+
+export const EMPTY_PAYMENT = {
+  amount: '',
+  bankAccount: '',
+  paidAt: '', // datetime-local value, in the user's timezone
+  reference: '',
+}
+
+const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' })
+
+/** "£10,000.00" */
+export function formatGBP(amount) {
+  return gbp.format(amount)
+}
+
 export const EMPTY_FILTERS = {
   visaCategories: [],
   city: '',
@@ -122,6 +140,15 @@ export function formatDate(iso) {
     month: 'short',
     year: 'numeric',
   })
+}
+
+/** "24 May 2026 · 14:00" from a datetime-local value (local time) */
+export function formatDateTime(local) {
+  if (!local) return ''
+  const date = new Date(local)
+  const day = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+  const time = date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+  return `${day} · ${time}`
 }
 
 export function initials(name = '') {

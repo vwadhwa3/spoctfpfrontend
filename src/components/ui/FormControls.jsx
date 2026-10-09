@@ -127,6 +127,31 @@ export function PhoneField({ label, id, code, onCodeChange, number, onNumberChan
   )
 }
 
+/** Amount input with a fixed currency symbol on the left. */
+export function CurrencyField({ label, id, symbol = '£', value, onChange, ...props }) {
+  return (
+    <div>
+      {label && <FieldLabel id={id}>{label}</FieldLabel>}
+      <div className="flex h-11 items-center rounded-[2px] border border-line bg-white transition-colors focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
+        <span className="pl-3.5 text-[15px] font-medium text-ink" aria-hidden="true">
+          {symbol}
+        </span>
+        <input
+          id={id}
+          type="number"
+          inputMode="decimal"
+          min="0.01"
+          step="0.01"
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className="h-full min-w-0 flex-1 bg-transparent px-2 text-[15px] text-body outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          {...props}
+        />
+      </div>
+    </div>
+  )
+}
+
 /** Square checkbox with navy fill when checked. */
 export function Checkbox({ label, checked, onChange }) {
   return (

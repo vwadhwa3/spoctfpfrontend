@@ -47,8 +47,10 @@ function NewCase() {
   const from = BACK_LABELS[location.state?.from] ? location.state.from : '/spoc/dashboard'
 
   const [search, setSearch] = useState('')
-  const [lead, setLead] = useState(EMPTY_LEAD)
-  const [applicants, setApplicants] = useState(() => [newApplicant()])
+  // Coming back from the payment step restores what was already entered
+  const draft = location.state?.draft
+  const [lead, setLead] = useState(draft?.lead ?? EMPTY_LEAD)
+  const [applicants, setApplicants] = useState(() => draft?.applicants ?? [newApplicant()])
 
   const today = new Date().toISOString().slice(0, 10)
   const setLeadField = (key) => (value) => setLead((prev) => ({ ...prev, [key]: value }))
@@ -62,20 +64,7 @@ function NewCase() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // Payment / Review steps aren't built yet — hand the case back to the list it came from.
-    const newCase = {
-      ...lead,
-      id: `c${Date.now()}`,
-      name: lead.fullName,
-      customerLead: lead.fullName,
-      phone: `${lead.phoneCode} ${lead.phone}`,
-      applicants: applicants.map(({ document, ...rest }) => ({ ...rest, documentName: document?.name ?? null })),
-      stage: 'created',
-      state: 'created',
-      highPriority: false,
-      updatedAt: new Date().toISOString(),
-    }
-    navigate(from, { state: { newCase } })
+    navigate('/spoc/cases/new/payment', { state: { from, draft: { ...draft, lead, applicants } } })
   }
 
   return (
