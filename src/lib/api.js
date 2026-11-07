@@ -1,4 +1,4 @@
-import { API_URL } from './auth.js'
+import { API_URL, authHeaders } from './auth.js'
 
 /** A failed backend call. `details` is the backend's list of { field, message }, when it sent one. */
 export class ApiError extends Error {
@@ -12,11 +12,12 @@ export class ApiError extends Error {
 }
 
 // Every backend response is { success, data } or { success: false, error, message, details? }.
-// The `token` cookie set by the login app is sent along, the same way verifySession does.
+// The token from localStorage goes in the Authorization header, the same way verifySession sends it.
 async function request(path, init) {
+  const headers = { ...authHeaders(), ...init.headers }
   let res
   try {
-    res = await fetch(`${API_URL}${path}`, { credentials: 'include', ...init })
+    res = await fetch(`${API_URL}${path}`, { ...init, headers })
   } catch (err) {
     if (err.name === 'AbortError') throw err
     throw new ApiError('Could not reach the server. Check your connection and try again.')
