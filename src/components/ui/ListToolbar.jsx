@@ -1,22 +1,38 @@
-import { SlidersHorizontal, ChevronDown } from 'lucide-react'
+import { SlidersHorizontal, ChevronDown } from "lucide-react";
 
 /** "Apply filters" button on the left, "Sort by" select on the right. */
-function ListToolbar({ onOpenFilters, activeFilterCount, sorters, sortBy, onSortChange, className = '' }) {
+function ListToolbar({
+  onOpenFilters,
+  activeFilterCount,
+  sorters,
+  sortBy,
+  onSortChange,
+  beforeFilters,
+  className = "",
+}) {
   return (
-    <div className={`flex flex-wrap items-center justify-between gap-3 border-b border-line px-0 pb-4 sm:px-[18px] ${className}`}>
-      <button
-        type="button"
-        onClick={onOpenFilters}
-        className="flex h-10 items-center gap-2.5 rounded-[2px] border border-ink/70 px-4 text-[15px] text-ink transition-colors hover:border-primary hover:bg-primary/5"
-      >
-        <SlidersHorizontal className="h-[18px] w-[18px] text-muted" strokeWidth={1.5} />
-        Apply filters
-        {activeFilterCount > 0 && (
-          <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs text-white">
-            {activeFilterCount}
-          </span>
-        )}
-      </button>
+    <div
+      className={`flex flex-wrap items-center justify-between gap-3 border-b border-line px-0 pb-4 sm:px-[18px] ${className}`}
+    >
+      <div className="flex flex-wrap items-center gap-4">
+        {beforeFilters}
+        <button
+          type="button"
+          onClick={onOpenFilters}
+          className="flex h-10 items-center gap-2.5 rounded-[2px] border border-ink/70 px-4 text-[15px] text-ink transition-colors hover:border-primary hover:bg-primary/5"
+        >
+          <SlidersHorizontal
+            className="h-[18px] w-[18px] text-muted"
+            strokeWidth={1.5}
+          />
+          Apply filters
+          {activeFilterCount > 0 && (
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs text-white">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
+      </div>
 
       <label className="flex items-center gap-2.5 text-[15px] text-muted">
         Sort by:
@@ -36,7 +52,7 @@ function ListToolbar({ onOpenFilters, activeFilterCount, sorters, sortBy, onSort
         </span>
       </label>
     </div>
-  )
+  );
 }
 
-export default ListToolbar
+export default ListToolbar;

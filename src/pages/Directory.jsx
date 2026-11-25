@@ -13,7 +13,7 @@ const PAGE_SIZE = 7
 
 function exportCustomers(rows) {
   downloadCsv(
-    'customers.csv',
+    'cases.csv',
     ['Customer lead', 'Total applicants', 'Assigned CSR', 'Assigned team lead', 'WhatsApp'],
     rows.map((r) => [r.lead, r.applicantCount, r.csr, r.teamLead, r.phone]),
   )
@@ -54,14 +54,14 @@ function Directory() {
 
         <main className="flex min-w-0 flex-1 flex-col px-4 pb-12 pt-9 sm:px-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
-            <h2 className="text-2xl font-semibold leading-tight text-primary sm:text-[32px]">Customers directory</h2>
+            <h2 className="text-2xl font-semibold leading-tight text-primary sm:text-[32px]">Active cases</h2>
             <OutlineButton
               type="button"
               onClick={() => exportCustomers(visibleCustomers)}
               className="h-12 px-5"
             >
               <Download className="h-5 w-5" strokeWidth={1.5} />
-              Download customer list
+              Download cases list
             </OutlineButton>
           </div>
 

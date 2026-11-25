@@ -862,7 +862,7 @@ function CustomerDetailView({ contactId }) {
         <Topbar search={search} onSearchChange={setSearch} userName="SPOC" />
 
         <main className="flex min-w-0 flex-1 flex-col px-4 pb-12 pt-9 sm:px-8">
-          <Link to="/spoc/directory" className="flex w-fit items-center gap-2 text-sm text-muted transition-colors hover:text-primary">
+          <Link to="/spoc/cases" className="flex w-fit items-center gap-2 text-sm text-muted transition-colors hover:text-primary">
             <ArrowLeft className="h-4 w-4" strokeWidth={1.75} />
             Back to directory
           </Link>

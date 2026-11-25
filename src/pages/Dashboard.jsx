@@ -6,6 +6,7 @@ import PageHeader from '../components/layout/PageHeader.jsx'
 import ListToolbar from '../components/ui/ListToolbar.jsx'
 import StageColumn from '../components/dashboard/StageColumn.jsx'
 import FilterDrawer from '../components/dashboard/FilterDrawer.jsx'
+import TaskToggle from '../components/dashboard/TaskToggle.jsx'
 import { downloadCsv } from '../lib/csv.js'
 import { STAGES, EMPTY_FILTERS, countActiveFilters, matchesFilters, matchesSearch } from '../data/cases.js'
 import { filterOptions, toBoardCards, useCaseRows } from '../lib/cases.js'
@@ -33,6 +34,7 @@ function Dashboard() {
   const [search, setSearch] = useState('')
   const [filters, setFilters] = useState(EMPTY_FILTERS)
   const [sortBy, setSortBy] = useState('travelDate')
+  const [taskView, setTaskView] = useState('all')
   const [filterOpen, setFilterOpen] = useState(false)
 
   const closeFilter = useCallback(() => setFilterOpen(false), [])
@@ -40,9 +42,10 @@ function Dashboard() {
   const visibleCases = useMemo(
     () =>
       cases
+        .filter((c) => taskView === 'all' || c.csr !== '')
         .filter((c) => matchesSearch(c, search) && matchesFilters(c, filters))
         .sort(SORTERS[sortBy].fn),
-    [cases, search, filters, sortBy],
+    [cases, search, filters, sortBy, taskView],
   )
 
   return (
@@ -67,6 +70,7 @@ function Dashboard() {
             sorters={SORTERS}
             sortBy={sortBy}
             onSortChange={setSortBy}
+            beforeFilters={<TaskToggle value={taskView} onChange={setTaskView} />}
           />
 
           {(loading || error) && (

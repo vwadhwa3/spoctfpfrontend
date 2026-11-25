@@ -21,6 +21,7 @@ import { useLookups } from '../lib/lookups.js'
 const STEPS = ['Details', 'Payment', 'Review']
 
 const BACK_LABELS = {
+  '/spoc/applications': 'Back to applications',
   '/spoc/cases': 'Back to cases',
   '/spoc/dashboard': 'Back to dashboard',
 }

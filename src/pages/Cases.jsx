@@ -29,7 +29,7 @@ const SORTERS = {
 function exportCases(rows) {
   const stateLabel = (row) => row.stateLabel ?? CASE_STATES.find((s) => s.id === row.state)?.label ?? row.state
   downloadCsv(
-    'active-cases.csv',
+    'active-applications.csv',
     ['Applicant name', 'Customer lead', 'Destination country', 'Visa category', 'Travel date', 'Assigned CSR', 'State', 'Last updated'],
     rows.map((r) => [r.name, r.customerLead, r.country, r.visa, formatDate(r.travelDate), r.csr, stateLabel(r), r.updatedAt]),
   )
@@ -77,9 +77,9 @@ function Cases() {
 
         <main className="flex min-w-0 flex-1 flex-col px-4 pb-12 pt-9 sm:px-8">
           <PageHeader
-            title="Active cases"
+            title="Active applications"
             onDownload={() => exportCases(visibleCases)}
-            onCreate={() => navigate('/spoc/cases/new', { state: { from: '/spoc/cases' } })}
+            onCreate={() => navigate('/spoc/cases/new', { state: { from: '/spoc/applications' } })}
           />
 
           <ListToolbar

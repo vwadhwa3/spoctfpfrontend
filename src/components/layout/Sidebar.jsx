@@ -4,8 +4,8 @@ import { LayoutGrid, Folder, BookUser, Settings, LogOut, Menu, X } from 'lucide-
 
 const NAV_ITEMS = [
   { to: '/spoc/dashboard', label: 'Dashboard', icon: LayoutGrid },
-  { to: '/spoc/cases', label: 'Cases', icon: Folder },
-  { to: '/spoc/directory', label: 'Directory', icon: BookUser },
+  { to: '/spoc/applications', label: 'Applications', icon: Folder },
+  { to: '/spoc/cases', label: 'Cases', icon: BookUser },
 ]
 
 const itemClass = ({ isActive }) =>

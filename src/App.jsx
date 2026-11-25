@@ -61,7 +61,8 @@ export default function App() {
           Route,
           { element: h(RequireAuth) },
           h(Route, { path: "/spoc/dashboard", element: h(Dashboard) }),
-          h(Route, { path: "/spoc/cases", element: h(Cases) }),
+          h(Route, { path: "/spoc/applications", element: h(Cases) }),
+          h(Route, { path: "/spoc/cases", element: h(Directory) }),
           h(Route, { path: "/spoc/cases/new", element: h(NewCase) }),
           h(Route, {
             path: "/spoc/cases/new/payment",
@@ -71,9 +72,8 @@ export default function App() {
             path: "/spoc/cases/new/review",
             element: h(NewCaseReview),
           }),
-          h(Route, { path: "/spoc/directory", element: h(Directory) }),
           h(Route, {
-            path: "/spoc/directory/:customerId",
+            path: "/spoc/cases/:customerId",
             element: h(CustomerDetail),
           }),
           h(Route, {

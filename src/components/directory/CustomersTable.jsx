@@ -33,7 +33,7 @@ function CustomersTable({ customers, emptyMessage = 'No customers match your sea
             customers.map((customer) => (
               <tr
                 key={customer.id}
-                onClick={() => navigate(`/spoc/directory/${customer.id}`)}
+                onClick={() => navigate(`/spoc/cases/${customer.id}`)}
                 className="cursor-pointer border-b border-line text-body transition-colors last:border-b-0 hover:bg-primary/[0.03]"
               >
                 <td className="whitespace-nowrap py-6 pl-6 pr-4">{customer.lead}</td>
@@ -65,7 +65,7 @@ function CustomersTable({ customers, emptyMessage = 'No customers match your sea
                 </td>
                 <td className="pr-5 text-right">
                   <Link
-                    to={`/spoc/directory/${customer.id}`}
+                    to={`/spoc/cases/${customer.id}`}
                     onClick={(event) => event.stopPropagation()}
                     className="ml-auto flex h-8 w-8 items-center justify-center rounded-[2px] text-muted transition-colors hover:text-primary"
                     aria-label={`Open ${customer.lead}`}
